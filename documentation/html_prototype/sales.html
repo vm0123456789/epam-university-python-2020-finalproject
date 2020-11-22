@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Departments</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+
+<!--========DROPDOWN NAVBAR==========-->
+
+  <div class="dropdown_navbar">
+      <button class="dropdown_button">
+          Sales
+      </button>
+      <div class="dropdown_content">
+          <a href="departments.html">Back to main page</a>
+          <a href="sales.html">Sales</a>
+          <a href="#">Accounting</a>
+          <a href="#">Warehouse</a>
+      </div>
+  </div>
+
+<!--========FLEXBOX CONTAINER==========-->
+
+  <div class="flexbox_container">
+      <a class="flexbox_item" href="jim_halpert.html">
+          <div class="flexbox_inscription">Jim Halpert</div>
+          <div class="flexbox_subscription">age: 37, salary: 2000$</div>
+
+          <!--'DELETE EMPLOYEE' BUTTON-->
+          <div class="flexbox_delete_button">
+              <button>edit</button>
+              <button>delete</button>
+          </div>
+      </a>
+      <a class="flexbox_item" href="#">
+          <div class="flexbox_inscription">Dwight Schrute</div>
+          <div class="flexbox_subscription">age: 35, salary: 1900$</div>
+          <div class="flexbox_delete_button">
+              <button>edit</button>
+              <button>delete</button>
+          </div>
+      </a>
+      <a class="flexbox_item" href="#">
+          <div class="flexbox_inscription">Andy Bernard</div>
+          <div class="flexbox_subscription">age: 33, salary: 2100$</div>
+          <div class="flexbox_delete_button">
+              <button>edit</button>
+              <button>delete</button>
+          </div>
+      </a>
+
+      <!-- 'ADD EMPLOYEE' LINK -->
+      <a href="add_employee.html" class="flexbox_item" style="justify-content: center; opacity: 0.5;">
+          <div style="align-self: center; font-size: xx-large;">
+              add new employee
+          </div>
+      </a>
+
+  </div>
+
+</body>
+</html>

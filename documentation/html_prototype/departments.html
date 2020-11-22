@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Departments</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+
+<!--========DROPDOWN NAVBAR==========-->
+
+  <div class="dropdown_navbar">
+      <button class="dropdown_button">
+          Dunder Mifflin Paper Company Inc. Scranton Branch departments
+      </button>
+      <div class="dropdown_content">
+          <a href="sales.html">Sales</a>
+          <a href="#">Accounting</a>
+          <a href="#">Warehouse</a>
+      </div>
+  </div>
+
+<!--========FLEXBOX CONTAINER==========-->
+
+  <div class="flexbox_container">
+      <a class="flexbox_item" href="sales.html">
+          <div class="flexbox_inscription">Sales</div>
+          <div class="flexbox_subscription">average salary: 2000$</div>
+
+          <!--'DELETE DEPARTMENT' BUTTON-->
+          <button class="flexbox_delete_button">delete</button>
+
+      </a>
+      <a class="flexbox_item" href="#">
+          <div class="flexbox_inscription">Accounting</div>
+          <div class="flexbox_subscription">average salary: 1500$</div>
+          <button class="flexbox_delete_button">delete</button>
+      </a>
+      <a class="flexbox_item" href="#">
+          <div class="flexbox_inscription">Warehouse</div>
+          <div class="flexbox_subscription">average salary: 3500$</div>
+          <button class="flexbox_delete_button">delete</button>
+      </a>
+
+      <!-- 'ADD DEPARTMENT' FORM -->
+
+      <form class="flexbox_item" style="justify-content: center; opacity: 0.5;">
+          <ul class="flex-outer">
+              <li>
+                  <input type="text" id="department" placeholder="New department">
+                  <button type="submit" style="margin: auto">+</button>
+              </li>
+          </ul>
+      </form>
+
+  </div>
+
+</body>
+</html>
