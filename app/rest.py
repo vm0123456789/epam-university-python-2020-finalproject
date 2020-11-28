@@ -83,10 +83,12 @@ class EmployeeByIdApi(Resource):
 
 class DepartmentApi(Resource):
 
-    @marshal_with(department_fields)
     def get(self):
-        # Get all departments
-        result = Department.query.all()
+        # Get all departments using DepartmentByIdApi get endpoint
+        departments = Department.query.all()
+        result = []
+        for department in departments:
+            result.append(DepartmentByIdApi.get(self, department.id)[0])
         return result, 200
 
     @marshal_with(department_fields)
