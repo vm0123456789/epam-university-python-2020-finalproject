@@ -6,6 +6,9 @@ class Department(db.Model):
     name = db.Column(db.String(64), unique=True, nullable=False)
     employees = db.relationship('Employee', backref='department', lazy='dynamic')
 
+    def __init__(self, name):
+        self.name = name
+
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
