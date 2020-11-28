@@ -13,7 +13,6 @@ empl_args.add_argument('department_name', type=str, help="Required")
 dep_args = reqparse.RequestParser()
 dep_args.add_argument('name', type=str, help="Required")
 
-
 # fields for flask-restful serialization using @marshal_with
 employee_fields = {
     'id': fields.Integer,
@@ -37,7 +36,7 @@ class EmployeeApi(Resource):
     def get(self):
         # Get all employees
         result = Employee.query.all()
-        return result
+        return result, 200
 
     @marshal_with(employee_fields)
     def post(self):
@@ -49,7 +48,7 @@ class EmployeeApi(Resource):
                                 department_name=args['department_name'])
         db.session.add(new_employee)
         db.session.commit()
-        return new_employee
+        return new_employee, 201
 
 
 class EmployeeByIdApi(Resource):
@@ -58,11 +57,18 @@ class EmployeeByIdApi(Resource):
     def get(self, empl_id):
         # Get employee by id
         result = Employee.query.filter_by(id=empl_id).first_or_404()
-        return result
+        return result, 200
 
     @marshal_with(employee_fields)
     def put(self, empl_id):
-        pass
+        # Update employee by id
+        args = empl_args.parse_args()
+        empl = Employee.query.filter_by(id=empl_id).first_or_404()
+        for k, v in args.items():
+            if args[k] is not None:
+                setattr(empl, k, v)
+        db.session.commit()
+        return empl, 200
 
     @marshal_with(employee_fields)
     def delete(self, empl_id):
@@ -70,7 +76,7 @@ class EmployeeByIdApi(Resource):
         result = Employee.query.filter_by(id=empl_id).first_or_404()
         db.session.delete(result)
         db.session.commit()
-        return result
+        return result, 204
 
 
 # ========= DEPARTMENT API ==============
@@ -81,7 +87,7 @@ class DepartmentApi(Resource):
     def get(self):
         # Get all departments
         result = Department.query.all()
-        return result
+        return result, 200
 
     @marshal_with(department_fields)
     def post(self):
@@ -89,7 +95,7 @@ class DepartmentApi(Resource):
         new_department = Department(name=args['name'])
         db.session.add(new_department)
         db.session.commit()
-        return new_department
+        return new_department, 201
 
 
 class DepartmentByIdApi(Resource):
@@ -101,15 +107,14 @@ class DepartmentByIdApi(Resource):
         result = marshal(dep, department_fields)
         empl_list = []
         salary_list = []
-        for empl in EmployeeApi.get(self):
+        for empl in EmployeeApi.get(self)[0]:
+            # [0] - bcz endpoint also returns a status code as second element
             if empl['department_name'] == dep.name:
                 empl_list.append(empl)
                 salary_list.append(empl['salary'])
         result['employees'] = empl_list
         try:
-            result['average_salary'] = sum(salary_list)/len(salary_list)
+            result['average_salary'] = sum(salary_list) / len(salary_list)
         except ZeroDivisionError:
             result['average_salary'] = 0
-        return result
-
-
+        return result, 200
