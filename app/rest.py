@@ -1,17 +1,24 @@
 from app import db
 from flask_restful import Resource, fields, marshal, marshal_with, reqparse
 from .models import Department, Employee
+from datetime import datetime as dt
 
-# request parser for Employee model
+# request parser for EmployeeApi
+# dates must be in <'%Y-%m-%d'> format
 empl_args = reqparse.RequestParser()
-empl_args.add_argument('name', type=str, help="Required")
-empl_args.add_argument('birthday', type=str, help="Required <%Y-%m-%d>")
-empl_args.add_argument('salary', type=int, help="Required")
-empl_args.add_argument('department_name', type=str, help="Required")
+empl_args.add_argument('name', type=str)
+empl_args.add_argument('birthday', type=str)
+empl_args.add_argument('salary', type=int)
+empl_args.add_argument('department_name', type=str)
 
-# request parser for Department model
+# request parser for DepartmentApi
 dep_args = reqparse.RequestParser()
-dep_args.add_argument('name', type=str, help="Required")
+dep_args.add_argument('name', type=str)
+
+# request parser for SearchApi
+search_args = reqparse.RequestParser()
+search_args.add_argument('start_date', type=str)
+search_args.add_argument('end_date', type=str)
 
 # fields for flask-restful serialization using @marshal_with
 employee_fields = {
@@ -29,6 +36,7 @@ department_fields = {
 
 
 # ======= EMPLOYEE API =========
+
 
 class EmployeeApi(Resource):
 
@@ -63,6 +71,8 @@ class EmployeeByIdApi(Resource):
     def put(self, empl_id):
         # Update employee by id
         args = empl_args.parse_args()
+        if args['birthday'] is not None:
+            args['birthday'] = dt.strptime(args['birthday'], '%Y-%m-%d').date()
         empl = Employee.query.filter_by(id=empl_id).first_or_404()
         for k, v in args.items():
             if args[k] is not None:
@@ -120,3 +130,34 @@ class DepartmentByIdApi(Resource):
         except ZeroDivisionError:
             result['average_salary'] = 0
         return result, 200
+
+
+# ========= SEARCH API ==============
+
+class SearchApi(Resource):
+    @marshal_with(employee_fields)
+    def get(self):
+        # Get all employees by birthday date / period of dates
+        args = search_args.parse_args()
+        start_date = dt.strptime(args['start_date'], '%Y-%m-%d').date()
+        end_date = dt.strptime(args['end_date'], '%Y-%m-%d').date()
+        # get all employees
+        employees = Employee.query.all()
+        # filter employees by birthday
+        employees = [empl for empl in employees if start_date <= empl.birthday <= end_date]
+        return employees, 200
+
+class SearchByDepartmentApi(Resource):
+
+    @marshal_with(employee_fields)
+    def get(self, dep_id):
+        # Get employees of the department by birthday date / period of dates
+        args = search_args.parse_args()
+        start_date = dt.strptime(args['start_date'], '%Y-%m-%d').date()
+        end_date = dt.strptime(args['end_date'], '%Y-%m-%d').date()
+        # get all employees of the department
+        dep = Department.query.filter_by(id=dep_id).first_or_404()
+        employees = Employee.query.filter_by(department_name=dep.name).all()
+        # filter employees by birthday
+        employees = [empl for empl in employees if start_date <= empl.birthday <= end_date]
+        return employees, 200

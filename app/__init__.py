@@ -9,13 +9,15 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from .rest import EmployeeApi, EmployeeByIdApi, DepartmentApi, DepartmentByIdApi
+from .rest import EmployeeApi, EmployeeByIdApi, DepartmentApi, DepartmentByIdApi, SearchApi, SearchByDepartmentApi
 
 restServ = Api(app)
 restServ.add_resource(EmployeeApi, '/api/employees')
 restServ.add_resource(EmployeeByIdApi, '/api/employees/<int:empl_id>')
 restServ.add_resource(DepartmentApi, '/api/departments')
 restServ.add_resource(DepartmentByIdApi, '/api/departments/<int:dep_id>')
+restServ.add_resource(SearchApi, '/api/search')
+restServ.add_resource(SearchByDepartmentApi, '/api/search/<int:dep_id>')
 
 from app import views
 

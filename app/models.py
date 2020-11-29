@@ -18,7 +18,7 @@ class Employee(db.Model):
 
     def __init__(self, name, birthday, salary, department_name):
         self.name = name
-        self.birthday = dt.strptime(birthday, '%Y-%m-%d')
+        self.birthday = dt.strptime(birthday, '%Y-%m-%d').date()
         self.salary = salary
         self.department_name = department_name
 
