@@ -21,7 +21,7 @@ class EmployeeApiTest(unittest.TestCase):
         self.assertEqual(len(r.json()), 10)
 
     # POST request to /api/employees creates new employee
-    def test_2_post_employee(self):
+    def test_2_create_employee(self):
         r = requests.post(EmployeeApi_URL, json=EMPL_OBJ)
         # we store id of newly created employee as global variable
         global empl_id
@@ -35,7 +35,14 @@ class EmployeeApiTest(unittest.TestCase):
         # check if returned id is equal to the id of previously created object stored as empl_id global variable
         self.assertEqual(r.json()['id'], empl_id)
 
-
+    # PUT request in order to update recently added employee
+    def test_4_update_created_employee(self):
+        updated_field = {"birthday": "1920-01-01"}
+        r = requests.put(f'{EmployeeApi_URL}/{empl_id}', json=updated_field)
+        self.assertEqual(r.status_code, 200)
+        # GET updated employee and check updated field
+        r = requests.get(f'{EmployeeApi_URL}/{empl_id}')
+        self.assertEqual(r.json()['birthday'], updated_field["birthday"])
 
 
 if __name__ == '__main__':
