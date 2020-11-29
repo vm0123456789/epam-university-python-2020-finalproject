@@ -126,7 +126,7 @@ class DepartmentByIdApi(Resource):
                 salary_list.append(empl['salary'])
         result['employees'] = empl_list
         try:
-            result['average_salary'] = sum(salary_list) / len(salary_list)
+            result['average_salary'] = round(sum(salary_list) / len(salary_list), 2)
         except ZeroDivisionError:
             result['average_salary'] = 0
         return result, 200
