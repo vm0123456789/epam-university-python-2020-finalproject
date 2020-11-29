@@ -10,6 +10,8 @@ EMPL_OBJ = {
     "department_name": "Warehouse"
 }
 
+empl_id = None
+
 class EmployeeApiTest(unittest.TestCase):
 
     # GET request to /api/employees returns all employees of the company
@@ -21,7 +23,19 @@ class EmployeeApiTest(unittest.TestCase):
     # POST request to /api/employees creates new employee
     def test_2_post_employee(self):
         r = requests.post(EmployeeApi_URL, json=EMPL_OBJ)
+        # we store id of newly created employee as global variable
+        global empl_id
+        empl_id = r.json()['id']
         self.assertEqual(r.status_code, 201)
+
+    # GET newly created employee
+    def test_3_get_created_employee(self):
+        r = requests.get(f'{EmployeeApi_URL}/{empl_id}')
+        self.assertEqual(r.status_code, 200)
+        # check if returned id is equal to the id of previously created object stored as empl_id global variable
+        self.assertEqual(r.json()['id'], empl_id)
+
+
 
 
 if __name__ == '__main__':
