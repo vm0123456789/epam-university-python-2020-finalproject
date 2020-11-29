@@ -2,14 +2,17 @@ import unittest
 import requests
 
 BASE = "http://127.0.0.1:5000"
+
+
+# =========== EmployeeApi and EmployeeByIdApi TESTING ==========
+
 EmployeeApi_URL = f'{BASE}/api/employees'
 EMPL_OBJ = {
     "name": "John Snow",
-    "birthday": "1970-08-08",
+    "birthday": "1900-01-01",
     "salary": 1000,
     "department_name": "Warehouse"
 }
-
 empl_id = None
 
 class EmployeeApiTest(unittest.TestCase):
@@ -44,8 +47,54 @@ class EmployeeApiTest(unittest.TestCase):
         r = requests.get(f'{EmployeeApi_URL}/{empl_id}')
         self.assertEqual(r.json()['birthday'], updated_field["birthday"])
 
+    # DELETE created employee
+    def test_5_delete_created_employee(self):
+        r = requests.delete(f'{EmployeeApi_URL}/{empl_id}')
+        self.assertEqual(r.status_code, 204)
+        # GET deleted employee
+        r = requests.get(f'{EmployeeApi_URL}/{empl_id}')
+        self.assertEqual(r.status_code, 404)
 
-if __name__ == '__main__':
-    unittest.main()
+
+# ============ SearchApi and SearchbyDepartmentApi TESTING =============
+
+SearchApi_URL = f'{BASE}/api/search'
+dates_range_true = {"start_date": "1890-01-01", "end_date": "1910-01-01"}
+dates_range_false = {"start_date": "1000-01-01", "end_date": "1500-01-01"}
+specific_date_true = {"start_date": "1900-01-01", "end_date": "1900-01-01"}
+
+class SearchApiTest(unittest.TestCase):
+
+    def test_6_search_all_employees_by_birthday(self):
+
+        # create new employee and store employee's id in global variable
+        r = requests.post(EmployeeApi_URL, json=EMPL_OBJ)
+        global empl_id
+        empl_id = r.json()['id']
+
+        # employee's birthday within the range
+        r = requests.get(SearchApi_URL, json=dates_range_true)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()[0]['id'], empl_id)
+
+        # employee's birthday out of range
+        r = requests.get(SearchApi_URL, json=dates_range_false)
+        self.assertEqual(r.status_code, 200)  # empty list returned
+        self.assertEqual(r.json(), [])
+
+        # employee's birthday date
+        r = requests.get(SearchApi_URL, json=specific_date_true)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()[0]['birthday'], specific_date_true['start_date'])
+
+    # def test_7_search_employee_by_department_and_birthday(self):
+    #     pass
+    #     # employee created in previous test
+
+
+
+
+# if __name__ == '__main__':
+#     unittest.main()
 
 

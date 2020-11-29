@@ -1,8 +1,10 @@
 .idea/
+.pytest_cache/
 __pycache__/
 app/__pycache__/
 env/
 migrations/
-
+.coverage
 app.db
+htmlcov/
 
