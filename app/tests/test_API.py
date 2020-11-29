@@ -7,7 +7,7 @@ BASE = "http://127.0.0.1:5000"
 # =========== EmployeeApi and EmployeeByIdApi TESTING ==========
 
 EmployeeApi_URL = f'{BASE}/api/employees'
-EMPL_OBJ = {
+EMPL_JSON = {
     "name": "John Snow",
     "birthday": "1900-01-01",
     "salary": 1000,
@@ -25,7 +25,7 @@ class EmployeeApiTest(unittest.TestCase):
 
     # POST request to /api/employees creates new employee
     def test_2_create_employee(self):
-        r = requests.post(EmployeeApi_URL, json=EMPL_OBJ)
+        r = requests.post(EmployeeApi_URL, json=EMPL_JSON)
         # we store id of newly created employee as global variable
         global empl_id
         empl_id = r.json()['id']
@@ -69,7 +69,7 @@ class SearchApiTest(unittest.TestCase):
     def test_6_search_all_employees_by_birthday(self):
 
         # create new employee and store employee's id in global variable
-        r = requests.post(EmployeeApi_URL, json=EMPL_OBJ)
+        r = requests.post(EmployeeApi_URL, json=EMPL_JSON)
         global empl_id
         empl_id = r.json()['id']
 
@@ -94,6 +94,20 @@ class SearchApiTest(unittest.TestCase):
         # id of Sales department is 1. There are 2 employees with birthday between 1960-01-01 and 1970-01-01
         r = requests.get(f'{SearchApi_URL}/1', json=dates_range_sales)
         self.assertEqual(len(r.json()), 2)
+
+
+# ============ DepartmentApi and DepartmentByIdApi TESTING =============
+
+DepartmentApiURL = f'{BASE}/api/departments'
+DEP_JSON = {
+    "name": "Human Resources"
+}
+class DepartmentApiTest(unittest.TestCase):
+    # GET request to /api/departments returns all departments of the company
+    def test_8_get_all_departments(self):
+        r = requests.get(DepartmentApiURL)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(len(r.json()), 3)
 
 
 
