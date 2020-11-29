@@ -3,7 +3,6 @@ __pycache__/
 app/__pycache__/
 env/
 migrations/
-app/tests/test_data/
 
 app.db
 
