@@ -62,6 +62,7 @@ SearchApi_URL = f'{BASE}/api/search'
 dates_range_true = {"start_date": "1890-01-01", "end_date": "1910-01-01"}
 dates_range_false = {"start_date": "1000-01-01", "end_date": "1500-01-01"}
 specific_date_true = {"start_date": "1900-01-01", "end_date": "1900-01-01"}
+dates_range_sales = {"start_date": "1960-01-01", "end_date": "1970-01-01"}  # 2 employees
 
 class SearchApiTest(unittest.TestCase):
 
@@ -86,10 +87,16 @@ class SearchApiTest(unittest.TestCase):
         r = requests.get(SearchApi_URL, json=specific_date_true)
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.json()[0]['birthday'], specific_date_true['start_date'])
+        # delete created employee
+        r = requests.delete(f'{EmployeeApi_URL}/{empl_id}')
 
-    # def test_7_search_employee_by_department_and_birthday(self):
-    #     pass
-    #     # employee created in previous test
+    def test_7_search_employee_by_department_and_birthday(self):
+        # id of Sales department is 1. There are 2 employees with birthday between 1960-01-01 and 1970-01-01
+        r = requests.get(f'{SearchApi_URL}/1', json=dates_range_sales)
+        self.assertEqual(len(r.json()), 2)
+
+
+
 
 
 
