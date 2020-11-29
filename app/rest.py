@@ -131,6 +131,14 @@ class DepartmentByIdApi(Resource):
             result['average_salary'] = 0
         return result, 200
 
+    @marshal_with(department_fields)
+    def delete(self, dep_id):
+        # delete department by id
+        result = Department.query.filter_by(id=dep_id).first_or_404()
+        db.session.delete(result)
+        db.session.commit()
+        return result, 204
+
 
 # ========= SEARCH API ==============
 
