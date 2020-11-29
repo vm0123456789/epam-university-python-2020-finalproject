@@ -14,6 +14,7 @@ class Employee(db.Model):
     name = db.Column(db.String(64), nullable=False)
     birthday = db.Column(db.Date, nullable=False)
     salary = db.Column(db.Integer, nullable=False)
+    # TODO use department.id as FK
     department_name = db.Column(db.Integer, db.ForeignKey('department.name'))
 
     def __init__(self, name, birthday, salary, department_name):

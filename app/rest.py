@@ -132,7 +132,13 @@ class DepartmentByIdApi(Resource):
         return result, 200
 
     @marshal_with(department_fields)
+    def put(self, dep_id):
+        # TODO
+        pass
+
+    @marshal_with(department_fields)
     def delete(self, dep_id):
+        # TODO delete all employees from the department if the department is deleted
         # delete department by id
         result = Department.query.filter_by(id=dep_id).first_or_404()
         db.session.delete(result)

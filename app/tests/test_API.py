@@ -102,14 +102,33 @@ DepartmentApiURL = f'{BASE}/api/departments'
 DEP_JSON = {
     "name": "Human Resources"
 }
+
+
 class DepartmentApiTest(unittest.TestCase):
+
     # GET request to /api/departments returns all departments of the company
     def test_8_get_all_departments(self):
         r = requests.get(DepartmentApiURL)
         self.assertEqual(r.status_code, 200)
         self.assertEqual(len(r.json()), 3)
 
+    # POST request to /api/departments
+    def test_9_create_department(self):
+        r = requests.post(DepartmentApiURL, json=DEP_JSON)
+        self.assertEqual(r.status_code, 201)
+        # get all departments, should be 4 now
+        r = requests.get(DepartmentApiURL)
+        self.assertEqual(len(r.json()), 4)
 
+    def test_10_delete_department(self):
+        # TODO
+        pass
+
+    # Sales department has 5 employees
+    def test_11_employees_of_the_department(self):
+        r = requests.get(f'{DepartmentApiURL}/1')
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(len(r.json()['employees']), 5)
 
 
 
