@@ -8,9 +8,15 @@
             <a class="flexbox_item" href="{{ url_for('department', dep_name=department['name']) }}">
                 <div class="flexbox_inscription">{{ department['name'] }}</div>
                 <div class="flexbox_subscription">average salary: {{ department['average_salary'] }} $</div>
+
                 <div class="flexbox_button">
-                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                    <button type="button" class="btn btn-secondary btn-sm">Delete</button>
+                    <button type="button" class="btn btn-outline-success btn-sm"
+                            data-toggle="modal" data-target="#modaledit">Edit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="return confirm
+                            ('Are you sure? The department will be deleted along with all employees!!!')">Delete
+                    </button>
                 </div>
             </a>
         {% endfor %}
