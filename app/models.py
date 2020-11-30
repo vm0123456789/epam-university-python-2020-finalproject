@@ -16,11 +16,11 @@ class Employee(db.Model):
     salary = db.Column(db.Integer, nullable=False)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
 
-    def __init__(self, name, birthday, salary, department_name):
+    def __init__(self, name, birthday, salary, department_id):
         self.name = name
         self.birthday = dt.strptime(birthday, '%Y-%m-%d').date()
         self.salary = salary
-        self.department_name = department_name
+        self.department_id = department_id
 
 # to create migration 'flask db init' (flask-migrate)
 # to apply migration 'flask db migrate', 'flask db upgrade'
