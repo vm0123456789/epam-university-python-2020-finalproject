@@ -140,10 +140,21 @@ class DepartmentByIdApi(Resource):
             result['average_salary'] = 0
         return result, 200
 
-    @marshal_with(department_fields)
     def put(self, dep_id):
-        # TODO
-        pass
+        # update department's name
+        args = dep_args.parse_args()
+        department = Department.query.filter_by(id=dep_id).first_or_404()
+        try:
+            for k, v in args.items():
+                setattr(department, k, v)
+            db.session.commit()
+            department_renamed = Department.query.filter_by(id=dep_id).first_or_404()
+            return marshal(department_renamed, department_fields), 200
+        except IntegrityError:
+            # department name should be unique
+            db.session.rollback()
+            return marshal({"message": "The department with this name already exists"}, error_fields), 412
+
 
     @marshal_with(department_fields)
     def delete(self, dep_id):
@@ -179,7 +190,6 @@ class SearchByDepartmentApi(Resource):
         start_date = dt.strptime(args['start_date'], '%Y-%m-%d').date()
         end_date = dt.strptime(args['end_date'], '%Y-%m-%d').date()
         # get all employees of the department
-        dep = Department.query.filter_by(id=dep_id).first_or_404()
         employees = Employee.query.filter_by(department_id=dep_id).all()
         # filter employees by birthday
         employees = [empl for empl in employees if start_date <= empl.birthday <= end_date]
