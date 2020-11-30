@@ -1,0 +1,188 @@
+body {
+    display: block;
+    background-color: #e9ecef;
+    font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+    color: #000000;
+}
+
+/*========DROPDOWN NAVBAR==========*/
+
+.dropdown_navbar {
+    text-align: center;
+}
+
+.dropdown_button {
+    background-color: #c8cbcf;
+    width: 100%;
+    opacity: 0.5;
+    padding: 2%;
+    font-size: xx-large;
+    text-align: center;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #e9ecef;
+  min-width: 100%;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown_content a {
+  color: black;
+  padding: 2%;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown_content a:hover, .dropdown_content a:active {background-color: #c8cbcf;}
+
+/* Show the dropdown menu on hover */
+.dropdown_navbar:hover .dropdown_content, .dropdown_navbar:active .dropdown_content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown_navbar:hover .dropdown_button, .dropdown_navbar:active .dropdown_button {opacity: 1;}
+
+
+/*========FLEXBOX CONTAINER==========*/
+
+
+.flexbox_container {
+    display: flex;
+    height: 80vh;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: start;
+    justify-content: center;
+}
+
+.flexbox_item {
+    text-decoration: none;
+    color: #000000;
+    background-color: #c8cbcf;
+    list-style-type: none;
+    width: 30%;
+    height: 20%;
+    margin: 1%;
+
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.flexbox_inscription {
+    align-self: center;
+    font-size: larger;
+}
+
+.flexbox_subscription {
+    font-style: italic;
+    align-self: center;
+}
+
+.flexbox_delete_button {
+    align-self: flex-end;
+}
+
+
+/*==========FLEXBOX FORM=============*/
+
+/*body {*/
+/*  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;*/
+/*  background: #3AAFAB;*/
+/*  color: #fff;*/
+/*  padding: 50px 0;*/
+/*}*/
+
+/*.container {*/
+/*  width: 80%;*/
+/*  max-width: 1200px;*/
+/*  margin: 0 auto;*/
+/*}*/
+
+/*.container * {*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-outer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-inner {
+  padding: 0 8px;
+  justify-content: space-between;
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 220px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 15px;
+  border: none;
+}
+
+.flex-outer li button .submit_button {
+  margin-left: auto;
+  padding: 15px;
+  border: none;
+  background: #333;
+  color: #f2f2f2;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+
+.flex-inner li {
+  width: 100px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .flexbox_item {
+        width: 90%;
+    }
+}
