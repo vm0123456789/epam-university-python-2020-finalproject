@@ -2,4 +2,27 @@
 {% include 'navbar.html' %}
 
 {% block content %}
+    <!--========FLEXBOX CONTAINER==========-->
+    <div class="flexbox_container">
+        {% for department in departments %}
+            <a class="flexbox_item" href="{{ url_for('department', dep_name=department['name']) }}">
+                <div class="flexbox_inscription">{{ department['name'] }}</div>
+                <div class="flexbox_subscription">average salary: {{ department['average_salary'] }} $</div>
+                <div class="flexbox_button">
+                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                    <button type="button" class="btn btn-secondary btn-sm">Delete</button>
+                </div>
+            </a>
+        {% endfor %}
+
+        <!-- 'ADD DEPARTMENT' FORM -->
+        <form action="" method="POST" class="flexbox_item" style="justify-content: center; opacity: 0.5;">
+
+            <ul class="flex-outer">
+                <li>
+
+                </li>
+            </ul>
+        </form>
+    </div>
 {% endblock %}
