@@ -9,7 +9,7 @@ empl_args = reqparse.RequestParser()
 empl_args.add_argument('name', type=str)
 empl_args.add_argument('birthday', type=str)
 empl_args.add_argument('salary', type=int)
-empl_args.add_argument('department_name', type=str)
+empl_args.add_argument('department_id', type=int)
 
 # request parser for DepartmentApi
 dep_args = reqparse.RequestParser()
@@ -26,7 +26,7 @@ employee_fields = {
     'name': fields.String,
     'birthday': fields.String,
     'salary': fields.Integer,
-    'department_name': fields.String
+    'department_id': fields.Integer
 }
 
 department_fields = {
@@ -53,7 +53,7 @@ class EmployeeApi(Resource):
         new_employee = Employee(name=args['name'],
                                 birthday=args['birthday'],
                                 salary=args['salary'],
-                                department_name=args['department_name'])
+                                department_id=args['department_id'])
         db.session.add(new_employee)
         db.session.commit()
         return new_employee, 201
@@ -114,14 +114,14 @@ class DepartmentByIdApi(Resource):
 
     def get(self, dep_id):
         # Get department by id.
-        # Return json with department id, department_name, list of employees and average salary
+        # Return json with department id, department name, list of employees and average salary
         dep = Department.query.filter_by(id=dep_id).first_or_404()
         result = marshal(dep, department_fields)
         empl_list = []
         salary_list = []
         for empl in EmployeeApi.get(self)[0]:
             # [0] - bcz endpoint also returns a status code as second element
-            if empl['department_name'] == dep.name:
+            if empl['department_id'] == dep_id:
                 empl_list.append(empl)
                 salary_list.append(empl['salary'])
         result['employees'] = empl_list
@@ -171,7 +171,7 @@ class SearchByDepartmentApi(Resource):
         end_date = dt.strptime(args['end_date'], '%Y-%m-%d').date()
         # get all employees of the department
         dep = Department.query.filter_by(id=dep_id).first_or_404()
-        employees = Employee.query.filter_by(department_name=dep.name).all()
+        employees = Employee.query.filter_by(department_id=dep_id).all()
         # filter employees by birthday
         employees = [empl for empl in employees if start_date <= empl.birthday <= end_date]
         return employees, 200
