@@ -39,6 +39,10 @@ department_fields = {
 error_fields = {
     'message': fields.String
 }
+
+message_fields = {
+    'message': fields.String
+}
 # ======= EMPLOYEE API =========
 
 
@@ -156,14 +160,21 @@ class DepartmentByIdApi(Resource):
             return marshal({"message": "The department with this name already exists"}, error_fields), 412
 
 
-    @marshal_with(department_fields)
     def delete(self, dep_id):
-        # TODO delete all employees from the department if the department is deleted
-        # delete department by id
-        result = Department.query.filter_by(id=dep_id).first_or_404()
-        db.session.delete(result)
+        """
+        method deletes department along with all its employees
+        """
+        # delete all employees from this department
+        employees = Employee.query.filter_by().all()
+        for empl in employees:
+            if empl.department_id == dep_id:
+                db.session.delete(empl)
         db.session.commit()
-        return result, 204
+        # delete department
+        department = Department.query.filter_by(id=dep_id).first_or_404()
+        db.session.delete(department)
+        db.session.commit()
+        return marshal({"message": "The department and all its employees deleted"}, message_fields), 204
 
 
 # ========= SEARCH API ==============
