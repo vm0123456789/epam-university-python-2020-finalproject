@@ -1,0 +1,16 @@
+<!--========DROPDOWN NAVBAR==========-->
+  <div class="dropdown_navbar">
+      <button class="dropdown_button">
+          {{ title }}
+      </button>
+      <div class="dropdown_content">
+          {% if title != COMPANY_NAME %}
+              <a href="{{ url_for('departments') }}"><i>===Main Page===</i></a>
+          {% endif %}
+          {% for department in departments if department['name'] != title %}
+          <a href="{{ url_for('department', dep_name=department['name']) }}">
+              {{ department['name'] }}
+          </a>
+          {% endfor %}
+      </div>
+  </div>

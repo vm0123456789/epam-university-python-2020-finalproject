@@ -24,3 +24,10 @@ def departments():
                            departments=departments)
 
 
+@app.route('/departments/<string:dep_name>')
+def department(dep_name):
+    name = dep_name.capitalize()
+    return ""
+
+
+
