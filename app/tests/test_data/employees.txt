@@ -3,60 +3,60 @@
     "name": "Jim Halpert",
     "birthday": "1977-12-02",
     "salary": 2500,
-    "department_name": "Sales"
+    "department_id": 1
   },
   {
     "name": "Dwight Schrute",
     "birthday": "1976-12-07",
     "salary": 2500,
-    "department_name": "Sales"
+    "department_id": 1
   },
   {
     "name": "Andy Bernard",
     "birthday": "1983-01-29",
     "salary": 2300,
-    "department_name": "Sales"
+    "department_id": 1
   },
   {
     "name": "Kevin Malone",
     "birthday": "1979-08-31",
     "salary": 1950,
-    "department_name": "Accounting"
+    "department_id": 2
   },
   {
     "name": "Stanley Hudson",
     "birthday": "1964-02-06",
     "salary": 2700,
-    "department_name": "Sales"
+    "department_id": 1
   },
   {
     "name": "Oscar Martinez",
     "birthday": "1974-02-08",
     "salary": 2300,
-    "department_name": "Accounting"
+    "department_id": 2
   },
   {
     "name": "Angela Martin",
     "birthday": "1973-05-03",
     "salary": 2100,
-    "department_name": "Accounting"
+    "department_id": 2
   },
   {
     "name": "Todd Packer",
     "birthday": "1969-12-23",
     "salary": 2200,
-    "department_name": "Sales"
+    "department_id": 1
   },
   {
     "name": "Darryl Philbin",
     "birthday": "1976-12-03",
     "salary": 1850,
-    "department_name": "Warehouse"
+    "department_id": 3
   },
   {
     "name": "Hidetoshi Hasagava",
     "birthday": "1967-03-11",
     "salary": 1450,
-    "department_name": "Warehouse"
+    "department_id": 3
   }
 ]

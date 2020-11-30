@@ -11,7 +11,7 @@ EMPL_JSON = {
     "name": "John Snow",
     "birthday": "1900-01-01",
     "salary": 1000,
-    "department_name": "Warehouse"
+    "department_id": 3
 }
 empl_id = None
 

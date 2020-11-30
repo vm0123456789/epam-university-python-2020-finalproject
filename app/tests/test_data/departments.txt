@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Sales"
+  },
+  {
+    "name": "Accounting"
+  },
+  {
+    "name": "Warehouse"
+  }
+]
