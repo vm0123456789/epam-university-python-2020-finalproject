@@ -5,6 +5,16 @@ body {
     color: #000000;
 }
 
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 /*========DROPDOWN NAVBAR==========*/
 
 .dropdown_navbar {
@@ -22,29 +32,35 @@ body {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown_content {
-  display: none;
-  position: absolute;
-  background-color: #e9ecef;
-  min-width: 100%;
-  z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #e9ecef;
+    min-width: 100%;
+    z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown_content a {
-  color: black;
-  padding: 2%;
-  text-decoration: none;
-  display: block;
+    color: black;
+    padding: 2%;
+    text-decoration: none;
+    display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown_content a:hover, .dropdown_content a:active {background-color: #c8cbcf;}
+.dropdown_content a:hover, .dropdown_content a:active {
+    background-color: #c8cbcf;
+}
 
 /* Show the dropdown menu on hover */
-.dropdown_navbar:hover .dropdown_content, .dropdown_navbar:active .dropdown_content {display: block;}
+.dropdown_navbar:hover .dropdown_content, .dropdown_navbar:active .dropdown_content {
+    display: block;
+}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown_navbar:hover .dropdown_button, .dropdown_navbar:active .dropdown_button {opacity: 1;}
+.dropdown_navbar:hover .dropdown_button, .dropdown_navbar:active .dropdown_button {
+    opacity: 1;
+}
 
 
 /*========FLEXBOX CONTAINER==========*/
@@ -84,7 +100,7 @@ body {
     align-self: center;
 }
 
-.flexbox_delete_button {
+.flexbox_button {
     align-self: flex-end;
 }
 
@@ -111,73 +127,73 @@ body {
 
 .flex-outer,
 .flex-inner {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 .flex-outer {
-  max-width: 800px;
-  margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .flex-outer li,
 .flex-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .flex-inner {
-  padding: 0 8px;
-  justify-content: space-between;
+    padding: 0 8px;
+    justify-content: space-between;
 }
 
 .flex-outer > li:not(:last-child) {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .flex-outer li label,
 .flex-outer li p {
-  padding: 8px;
-  font-weight: 300;
-  letter-spacing: .09em;
-  text-transform: uppercase;
+    padding: 8px;
+    font-weight: 300;
+    letter-spacing: .09em;
+    text-transform: uppercase;
 }
 
 .flex-outer > li > label,
 .flex-outer li p {
-  flex: 1 0 120px;
-  max-width: 220px;
+    flex: 1 0 120px;
+    max-width: 220px;
 }
 
 .flex-outer > li > label + *,
 .flex-inner {
-  flex: 1 0 220px;
+    flex: 1 0 220px;
 }
 
 .flex-outer li p {
-  margin: 0;
+    margin: 0;
 }
 
 .flex-outer li input:not([type='checkbox']),
 .flex-outer li textarea {
-  padding: 15px;
-  border: none;
+    padding: 15px;
+    border: none;
 }
 
 .flex-outer li button .submit_button {
-  margin-left: auto;
-  padding: 15px;
-  border: none;
-  background: #333;
-  color: #f2f2f2;
-  text-transform: uppercase;
-  letter-spacing: .09em;
-  border-radius: 2px;
+    margin-left: auto;
+    padding: 15px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
 }
 
 .flex-inner li {
-  width: 100px;
+    width: 100px;
 }
 
 
