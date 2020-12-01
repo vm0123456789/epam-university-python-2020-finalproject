@@ -8,7 +8,10 @@
         {% for employee in employees %}
             <a class="flexbox_item" href="{{ url_for('employee', empl_id=employee['id']) }}">
                 <div class="flexbox_inscription">{{ employee['name'] }}</div>
-                <div class="flexbox_subscription">salary: {{ employee['salary'] }} $</div>
+                <div class="flexbox_subscription">
+                    &#127874;{{ employee['birthday'] }},
+                    &#128178;{{ employee['salary'] }}
+                </div>
 
                 <div class="flexbox_button">
                     <button type="button" class="btn btn-outline-success btn-sm"
