@@ -90,6 +90,12 @@ a:active {
     justify-content: space-between;
 }
 
+.flexbox_item:hover, .flexbox_item:active {
+    box-shadow: 0 0 5px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+
 .flexbox_inscription {
     align-self: center;
     font-size: larger;
