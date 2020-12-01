@@ -2,6 +2,7 @@ import requests
 from flask import render_template
 
 from app import app
+from app.models import Department
 
 from .rest import DepartmentApi
 
@@ -18,9 +19,17 @@ def global_variables():
 
 def get_all_departments():
     """
-    :return: departments data in json format: <'id', 'name', 'emploees', 'average_salary'>
+    :return: departments data in json format. Keys: {id', 'name', 'employees', 'average_salary'}
     """
     return requests.get(f'{BASE}/api/departments').json()
+
+
+def get_department_employees(dep_name):
+    """
+    :return: employees data in json format. Keys: {'id', 'name', 'birthday', 'salary', 'department_id}
+    """
+    dep_id = Department.query.filter_by(name=dep_name).first_or_404().id
+    return requests.get(f'{BASE}/api/departments/{dep_id}').json()['employees']
 
 
 # ========= VIEWS ==============
@@ -28,13 +37,21 @@ def get_all_departments():
 @app.route('/')
 @app.route('/departments')
 def departments():
+    departments = get_all_departments()
     return render_template('departments.html', title=global_variables()['COMPANY_NAME'],
-                           departments=get_all_departments())
+                           departments=departments)
 
 
 @app.route('/departments/<string:dep_name>')
 def department(dep_name):
-    return render_template('department.html', title=dep_name.capitalize(), departments=get_all_departments())
+    employees = get_department_employees(dep_name)
+    departments = get_all_departments()
+    return render_template('department.html', title=dep_name.capitalize(),
+                           employees=employees, departments=departments)
 
+
+@app.route('/employees/<int:empl_id>')
+def employee(empl_id):
+    return ''
 
 
