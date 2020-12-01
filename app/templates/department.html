@@ -2,4 +2,26 @@
 {% include 'navbar.html' %}
 
 {% block content %}
+
+ <!--========FLEXBOX CONTAINER==========-->
+    <div class="flexbox_container">
+        {% for employee in employees %}
+            <a class="flexbox_item" href="{{ url_for('employee', empl_id=employee['id']) }}">
+                <div class="flexbox_inscription">{{ employee['name'] }}</div>
+                <div class="flexbox_subscription">salary: {{ employee['salary'] }} $</div>
+
+                <div class="flexbox_button">
+                    <button type="button" class="btn btn-outline-success btn-sm"
+
+                            {#onclick="return false" to prevent opening another page since buttons are inside link#}
+                            data-toggle="modal" data-target="#modal_edit_employee" onclick="return false">Edit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="return confirm
+                            ('Are you sure? The employee will be deleted!!!')">Delete
+                    </button>
+                </div>
+            </a>
+        {% endfor %}
+
 {% endblock %}
