@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+
+{% block content %}
+
+    <!--========FLEXBOX CONTAINER==========-->
+    <div class="flexbox_container">
+        <div class="flexbox_item">
+            <div class="flexbox_inscription">
+                NAME
+            </div>
+            <div class="flexbox_subscription">
+                {{ empl['name'] }}
+            </div>
+        </div>
+        <div class="flexbox_item">
+            <div class="flexbox_inscription">
+                BIRTHDAY
+            </div>
+            <div class="flexbox_subscription">
+                {{ empl['birthday'] }}
+            </div>
+        </div>
+        <div class="flexbox_item">
+            <div class="flexbox_inscription">
+                SALARY
+            </div>
+            <div class="flexbox_subscription">
+                {{ empl['salary'] }}$
+            </div>
+        </div>
+    </div>
+{% endblock %}

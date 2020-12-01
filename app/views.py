@@ -31,6 +31,12 @@ def get_department_employees(dep_name):
     dep_id = Department.query.filter_by(name=dep_name).first_or_404().id
     return requests.get(f'{BASE}/api/departments/{dep_id}').json()['employees']
 
+def get_employee(empl_id):
+    """
+    :return: employee data in json format. Keys: {'id', 'name', 'birthday', 'salary', 'department_id'}
+    """
+    return requests.get(F'{BASE}/api/employees/{empl_id}').json()
+
 
 # ========= VIEWS ==============
 
@@ -52,6 +58,8 @@ def department(dep_name):
 
 @app.route('/employees/<int:empl_id>')
 def employee(empl_id):
-    return ''
+    departments= get_all_departments()
+    empl = get_employee(empl_id)
+    return render_template('employee.html', title=empl['name'], empl=empl, departments=departments)
 
 
