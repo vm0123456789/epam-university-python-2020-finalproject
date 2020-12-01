@@ -11,7 +11,9 @@
 
                 <div class="flexbox_button">
                     <button type="button" class="btn btn-outline-success btn-sm"
-                            data-toggle="modal" data-target="#modaledit">Edit
+
+                            {#onclick="return false" to prevent opening another page since buttons are inside link#}
+                            data-toggle="modal" data-target="#modal_edit_department" onclick="return false">Edit
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm"
                             onclick="return confirm
@@ -21,7 +23,7 @@
             </a>
         {% endfor %}
 
-        <!-- 'ADD DEPARTMENT' FORM -->
+        <!-- 'ADD DEPARTMENT' FLEXBOX -->
         <form action="" method="POST" class="flexbox_item" style="justify-content: center; opacity: 0.5;">
 
             <ul class="flex-outer">
@@ -30,5 +32,55 @@
                 </li>
             </ul>
         </form>
+    </div>
+
+    <!-- ====== MODAL ADD DEPARTMENT ======= -->
+    <div id="modal_add_department" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Department</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label>Department Name:</label>
+                            <input type="text" class="form-control" name="name" required="1">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Add Department</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== MODAL EDIT DEPARTMENT ======= -->
+    <div id="modal_edit_department" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Department</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label>Department Name:</label>
+                            <input type="text" class="form-control" name="name" required="1">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Edit Department</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
