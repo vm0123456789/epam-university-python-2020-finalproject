@@ -11,7 +11,7 @@ empl_args = reqparse.RequestParser()
 empl_args.add_argument('name', type=str)
 empl_args.add_argument('birthday', type=str)
 empl_args.add_argument('salary', type=int)
-empl_args.add_argument('department_id', type=int)
+empl_args.add_argument('dep_name', type=str)
 
 # request parser for DepartmentApi
 dep_args = reqparse.RequestParser()
@@ -58,10 +58,11 @@ class EmployeeApi(Resource):
     def post(self):
         # Create new employee
         args = empl_args.parse_args()
+        dep_id = Department.query.filter_by(name=args['dep_name']).first_or_404().id
         new_employee = Employee(name=args['name'],
                                 birthday=args['birthday'],
                                 salary=args['salary'],
-                                department_id=args['department_id'])
+                                department_id=dep_id)
         db.session.add(new_employee)
         db.session.commit()
         return new_employee, 201
