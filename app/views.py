@@ -13,7 +13,7 @@ BASE = 'http://localhost:5000'
 
 @app.context_processor
 def global_variables():
-    return dict(COMPANY_NAME="Dunder Mifflin Paper Company Inc. Scranton Branch departments")
+    return dict(COMPANY_NAME="Dunder Mifflin Paper Company Inc. Scranton Branch")
 
 
 # ========== API REQUESTS FUNCTIONS ============
@@ -42,7 +42,7 @@ def post_department(data):
     return requests.post(f'{BASE}/api/departments', data).json()
 
 
-# ========= VIEWS ==============
+# ========= DEPARTMENT VIEWS ==============
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/departments', methods=['GET', 'POST'])
@@ -61,20 +61,24 @@ def departments():
 @app.route('/delete_department/<int:dep_id>')
 def delete_department(dep_id):
     requests.delete(f'{BASE}/api/departments/{dep_id}')
+    flash('Department deleted')
     return redirect(url_for('departments'), 303)
+
 
 @app.route('/update_department/<int:dep_id>', methods=['POST'])
 def update_department(dep_id):
     data = request.form
     requests.put(f'{BASE}/api/departments/{dep_id}', data)
+    flash('Department updated')
     return redirect(url_for('departments'), 303)
+
 
 @app.route('/departments/<string:dep_name>', methods=['GET'])
 def department(dep_name):
     if request.method == 'GET':
         employees = get_department_employees(dep_name)
         departments = get_all_departments()
-        return render_template('department.html', title=dep_name.capitalize(),
+        return render_template('department.html', title=dep_name,
                                employees=employees, departments=departments)
 
 
