@@ -42,7 +42,7 @@ def post_department(data):
     return requests.post(f'{BASE}/api/departments', data).json()
 
 
-# ========= DEPARTMENT VIEWS ==============
+# ========= DEPARTMENTS VIEWS FUNCTIONS ==============
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/departments', methods=['GET', 'POST'])
@@ -73,13 +73,22 @@ def update_department(dep_id):
     return redirect(url_for('departments'), 303)
 
 
-@app.route('/departments/<string:dep_name>', methods=['GET'])
+# ================== EMPLOYEES VIEW FUNCTIONS ====================
+
+@app.route('/departments/<string:dep_name>', methods=['GET', 'POST'])
 def department(dep_name):
     if request.method == 'GET':
         employees = get_department_employees(dep_name)
         departments = get_all_departments()
         return render_template('department.html', title=dep_name,
                                employees=employees, departments=departments)
+    elif request.method == 'POST':
+        data = request.form
+        print(data)
+        requests.post(f'{BASE}/api/employees', data)
+        return redirect(url_for('department', dep_name=dep_name), 303)
+
+
 
 
 @app.route('/employees/<int:empl_id>')
