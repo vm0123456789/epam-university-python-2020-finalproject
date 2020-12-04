@@ -1,0 +1,56 @@
+<div class="modal fade" id="modal_search_department_employees" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Search Department Employees</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                        <div class="form-group">
+                            <div class="row form-group">
+                                <div class="col">
+                                    <label for="start_date">From:</label>
+                                    <input type="date" class="form-control" id="start_date" name="start_date"
+                                           required="1">
+                                </div>
+                                <div class="col">
+                                    <label for="end_date">To:</label>
+                                    <input type="date" class="form-control" id="end_date" name="end_date" required="1">
+                                </div>
+                            </div>
+                            <div class="form-group float-right">
+                                <button class="btn btn-success" type="submit">Search</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                    <div class="modal-body">
+                        <table class="table table-hover table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>Salary</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Andy Marsh</td>
+                                <td>2019-12-22</td>
+                                <td>700$</td>
+                            </tr>
+                        </table>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
