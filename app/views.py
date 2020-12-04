@@ -1,5 +1,6 @@
 import requests
-from flask import render_template
+import json
+from flask import render_template, request, redirect, url_for, jsonify
 
 from app import app
 from app.models import Department
@@ -35,17 +36,36 @@ def get_employee(empl_id):
     """
     :return: employee data in json format. Keys: {'id', 'name', 'birthday', 'salary', 'department_id'}
     """
-    return requests.get(F'{BASE}/api/employees/{empl_id}').json()
+    return requests.get(f'{BASE}/api/employees/{empl_id}').json()
+
+def post_department(data):
+    return requests.post(f'{BASE}/api/departments', data).json()
+
+def delete_department(dep_id):
+    return requests.delete(f'{BASE}/api/departments/{dep_id}')
 
 
 # ========= VIEWS ==============
 
-@app.route('/')
-@app.route('/departments')
+@app.route('/', methods=['GET', 'POST', 'DELETE'])
+@app.route('/departments', methods=['GET', 'POST', 'DELETE'])
 def departments():
-    departments = get_all_departments()
-    return render_template('departments.html', title=global_variables()['COMPANY_NAME'],
-                           departments=departments)
+    if request.method == 'GET':
+        departments = get_all_departments()
+        return render_template('departments.html', title=global_variables()['COMPANY_NAME'],
+                               departments=departments)
+    elif request.method == 'POST':
+        data = request.form
+        post_department(data)
+    elif request.method == 'DELETE':
+        dep_id = int(request.data)
+        delete_department(dep_id)
+    return redirect(url_for('departments'), 303)
+
+
+
+
+
 
 
 @app.route('/departments/<string:dep_name>')
