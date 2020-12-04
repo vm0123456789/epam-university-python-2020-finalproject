@@ -38,9 +38,9 @@ def get_employee(empl_id):
     """
     return requests.get(f'{BASE}/api/employees/{empl_id}').json()
 
-def post_department(data):
-    return requests.post(f'{BASE}/api/departments', data).json()
-
+def dep_name_by_empl_id(empl_id):
+    dep_id = Employee.query.filter_by(id=empl_id).first_or_404().department_id
+    return Department.query.filter_by(id=dep_id).first_or_404().name
 
 # ========= DEPARTMENTS VIEWS FUNCTIONS ==============
 
@@ -53,7 +53,7 @@ def departments():
                                departments=departments)
     elif request.method == 'POST':
         data = request.form
-        post_department(data)
+        requests.post(f'{BASE}/api/departments', data)
         flash('Department added')
     return redirect(url_for('departments'), 303)
 
@@ -88,11 +88,17 @@ def department(dep_name):
         requests.post(f'{BASE}/api/employees', data)
         return redirect(url_for('department', dep_name=dep_name), 303)
 
+@app.route('/update_employee/<string:empl_id>', methods=['POST'])
+def update_employee(empl_id):
+    dep_name = dep_name_by_empl_id(empl_id)
+    data = request.form
+    requests.put(f'{BASE}/api/employees/{empl_id}', data)
+    flash('Employee information updated')
+    return redirect(url_for('department', dep_name=dep_name), 303)
 
 @app.route('/delete_employee/<int:empl_id>')
 def delete_employee(empl_id):
-    dep_id = Employee.query.filter_by(id=empl_id).first_or_404().department_id
-    dep_name = Department.query.filter_by(id=dep_id).first_or_404().name
+    dep_name = dep_name_by_empl_id(empl_id)
     requests.delete(f'{BASE}/api/employees/{empl_id}')
     flash('Employee deleted')
     return redirect(url_for('department', dep_name=dep_name), 303)
