@@ -1,27 +1,27 @@
 <!-- ====== MODAL EDIT EMPLOYEE ======= -->
-<div id="modal_edit_employee{{ employee['id'] }}" class="modal fade" role="dialog">
+<div id="modal_edit_employee{{ empl['id'] }}" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Employee</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ url_for('update_employee', empl_id=employee['id']) }}" method="POST">
+                <form action="{{ url_for('update_employee', empl_id=empl['id']) }}" method="POST">
 
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" class="form-control" id="name" name="name" required="1"
-                               value="{{ employee['name'] }}">
+                               value="{{ empl['name'] }}">
                     </div>
 
                     <div class="form-group">
                         <label for="birthday">Birthday:</label>
-                        <input type="date" class="form-control" id="birthday" name="birthday" required="1" value="{{ employee['birthday'] }}">
+                        <input type="date" class="form-control" id="birthday" name="birthday" required="1" value="{{ empl['birthday'] }}">
                     </div>
 
                     <div class="form-group">
                         <label for="salary">Salary:</label>
-                        <input type="number" class="form-control" id="salary" name="salary" required="1" value="{{ employee['salary'] }}">
+                        <input type="number" class="form-control" id="salary" name="salary" required="1" value="{{ empl['salary'] }}">
                     </div>
 
                     <div class="form-group">
@@ -29,7 +29,7 @@
                         <select class="form-control" id="dep_name" name="dep_name">
                             {#                            current department will be selected by default#}
                             {% for department in departments %}
-                                <option {% if department['name'] == title %}
+                                <option {% if department['name'] == dep_name %}
                                     selected
                                 {% endif %}>{{ department['name'] }}</option>
                             {% endfor %}

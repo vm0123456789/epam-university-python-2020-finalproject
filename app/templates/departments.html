@@ -15,9 +15,12 @@
                        data-toggle="modal" data-target="#modal_edit_department{{ department['id'] }}">Edit
                     </a>
                     <a href="{{ url_for('delete_department', dep_id=department['id']) }}"
-                       class="btn btn-outline-danger btn-sm">Delete</a>
+                       class="btn btn-outline-danger btn-sm"
+                       onclick="return confirm('Are you sure? The department will be deleted with all employees. ' +
+                        'It is recommended to transfer all employees somewhere else first')">Delete</a>
                 </div>
             </div>
+
             <!-- ====== MODAL EDIT DEPARTMENT ======= -->
             <div id="modal_edit_department{{ department['id'] }}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -26,7 +29,7 @@
                             <h4 class="modal-title">Edit Department</h4>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ url_for('update_department', dep_id= department['id']) }}" method="POST">
+                            <form action="{{ url_for('update_department', dep_id=department['id']) }}" method="POST">
                                 <div class="form-group">
                                     <label>Department Name:</label>
                                     <input type="text" class="form-control" name="name" required="1"

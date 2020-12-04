@@ -31,7 +31,8 @@
         </div>
 
         <!-- 'EDIT EMPLOYEE' FLEXBOX -->
-        <a href='#' class="flexbox_item btn-lg btn-success" data-toggle="modal" data-target="#modal_add_employee"
+        <a href="#" class="flexbox_item btn-lg btn-success" data-toggle="modal"
+           data-target="#modal_edit_employee{{ empl['id'] }}"
            style="justify-content: center; opacity: 0.5;">
             <div class="flexbox_inscription btn-lg">
                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
@@ -43,9 +44,11 @@
         </a>
 
         <!-- 'DELETE EMPLOYEE' FLEXBOX -->
-        <a href='#' class="flexbox_item btn-lg btn-danger" data-toggle="modal" data-target="#modal_add_employee"
-           style="justify-content: center; opacity: 0.5;">
-            <div class="flexbox_inscription btn-lg">
+        <a href="{{ url_for('delete_employee', empl_id=empl['id']) }}" class="flexbox_item btn-lg btn-danger"
+           data-toggle="modal" data-target="#modal_add_employee"
+           style="justify-content: center; opacity: 0.5;"
+           onclick="return confirm('Are you sure? All employee information will be deleted')">
+            <div class=" flexbox_inscription btn-lg">
                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -56,6 +59,6 @@
         </a>
     </div>
 
-{% include 'add_edit_employee_modals.html' %}
+    {% include 'modal_edit_employee.html' %}
 
 {% endblock %}

@@ -19,28 +19,29 @@
         </a>
 
         <!-- 'EMPLOYEE' FLEXBOXES -->
-        {% for employee in employees %}
+        {% for empl in employees %}
             <div class="flexbox_item">
-                <a href="{{ url_for('employee', empl_id=employee['id']) }}"
-                   class="flexbox_inscription btn btn-lnk btn-sm">{{ employee['name'] }}</a>
+                <a href="{{ url_for('employee', empl_id=empl['id']) }}"
+                   class="flexbox_inscription btn btn-lnk btn-sm">{{ empl['name'] }}</a>
                 <div class="flexbox_subscription">
-                    &#127874;{{ employee['birthday'] }};
-                    &#128178;{{ employee['salary'] }}
+                    &#127874;{{ empl['birthday'] }};
+                    &#128178;{{ empl['salary'] }}
                 </div>
 
                 <div class="flexbox_button">
                     <a type="button" class="btn btn-outline-success btn-sm"
-                       data-toggle="modal" data-target="#modal_edit_employee{{ employee['id'] }}">Edit
+                       data-toggle="modal" data-target="#modal_edit_employee{{ empl['id'] }}">Edit
                     </a>
-                    <a href="{{ url_for('delete_employee', empl_id=employee['id']) }}"
-                       class="btn btn-outline-danger btn-sm">Delete</a>
+                    <a href="{{ url_for('delete_employee', empl_id=empl['id']) }}"
+                       class="btn btn-outline-danger btn-sm"
+                       onclick="return confirm('Are you sure? All employee information will be deleted')">Delete</a>
                 </div>
             </div>
 
             {% include 'modal_edit_employee.html' %}
 
         {% endfor %}
-    {% include 'modal_add_employee.html' %}
+        {% include 'modal_add_employee.html' %}
     </div>
 
 
