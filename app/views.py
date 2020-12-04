@@ -1,6 +1,6 @@
 import requests
 import json
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, flash
 
 from app import app
 from app.models import Department
@@ -54,6 +54,7 @@ def departments():
     elif request.method == 'POST':
         data = request.form
         post_department(data)
+        flash('Department added')
     return redirect(url_for('departments'), 303)
 
 
