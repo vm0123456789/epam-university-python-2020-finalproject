@@ -1,0 +1,48 @@
+<!-- ====== MODAL EDIT EMPLOYEE ======= -->
+<div id="modal_edit_employee" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Employee</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthday">Birthday:</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday" required="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salary">Salary:</label>
+                        <input type="number" class="form-control" id="salary" name="salary" required="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dep_name">Department:</label>
+                        <select class="form-control" id="dep_name" name="dep_name">
+                            {#                            current department will be selected by default#}
+                            {% for department in departments %}
+                                <option {% if department['name'] == title %}
+                                    selected
+                                {% endif %}>{{ department['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Edit Employee</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

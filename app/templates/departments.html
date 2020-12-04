@@ -12,11 +12,10 @@
 
                 <div class="flexbox_button">
                     <a class="btn btn-outline-success btn-sm"
-                            {#onclick="return false" to prevent opening another page since buttons are inside link#}
-                       data-toggle="modal" data-target="#modal_edit_department{{ department['id'] }}"
-                       onclick="return false">Edit
+                       data-toggle="modal" data-target="#modal_edit_department{{ department['id'] }}">Edit
                     </a>
-                    <a href="{{ url_for('delete_department', dep_id=department['id']) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                    <a href="{{ url_for('delete_department', dep_id=department['id']) }}"
+                       class="btn btn-outline-danger btn-sm">Delete</a>
                 </div>
             </div>
             <!-- ====== MODAL EDIT DEPARTMENT ======= -->

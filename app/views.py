@@ -3,7 +3,7 @@ import json
 from flask import render_template, request, redirect, url_for, flash
 
 from app import app
-from app.models import Department
+from app.models import Department, Employee
 
 from .rest import DepartmentApi
 
@@ -89,6 +89,13 @@ def department(dep_name):
         return redirect(url_for('department', dep_name=dep_name), 303)
 
 
+@app.route('/delete_employee/<int:empl_id>')
+def delete_employee(empl_id):
+    dep_id = Employee.query.filter_by(id=empl_id).first_or_404().department_id
+    dep_name = Department.query.filter_by(id=dep_id).first_or_404().name
+    requests.delete(f'{BASE}/api/employees/{empl_id}')
+    flash('Employee deleted')
+    return redirect(url_for('department', dep_name=dep_name), 303)
 
 
 @app.route('/employees/<int:empl_id>')
