@@ -5,23 +5,19 @@
     <!--========FLEXBOX CONTAINER==========-->
     <div class="flexbox_container">
         {% for department in departments %}
-            <a class="flexbox_item" href="{{ url_for('department', dep_name=department['name']) }}">
-                <div class="flexbox_inscription">{{ department['name'] }}</div>
+            <div class="flexbox_item">
+                <a href="{{ url_for('department', dep_name=department['name']) }}"
+                   class="flexbox_inscription btn btn-lnk btn-sm">{{ department['name'] }}</a>
                 <div class="flexbox_subscription">average salary: {{ department['average_salary'] }} $</div>
 
                 <div class="flexbox_button">
-                    <button type="button" class="btn btn-outline-success btn-sm"
-
+                    <a class="btn btn-outline-success btn-sm"
                             {#onclick="return false" to prevent opening another page since buttons are inside link#}
-                            data-toggle="modal" data-target="#modal_edit_department" onclick="return false">Edit
-                    </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm"
-                            onclick="event.preventDefault(); if (confirm('Are you sure? The department will be deleted along with all employees!!!'))
-                                    {delete_department({{ department['id'] }})} else {console.log('Some error happened')}">
-                        Delete
-                    </button>
+                       data-toggle="modal" data-target="#modal_edit_department" onclick="return false">Edit
+                    </a>
+                    <a href="/delete_department/{{ department['id'] }}" class="btn btn-outline-danger btn-sm">Delete</a>
                 </div>
-            </a>
+            </div>
         {% endfor %}
 
         <!-- 'ADD DEPARTMENT' FLEXBOX -->

@@ -41,14 +41,11 @@ def get_employee(empl_id):
 def post_department(data):
     return requests.post(f'{BASE}/api/departments', data).json()
 
-def delete_department(dep_id):
-    return requests.delete(f'{BASE}/api/departments/{dep_id}')
-
 
 # ========= VIEWS ==============
 
-@app.route('/', methods=['GET', 'POST', 'DELETE'])
-@app.route('/departments', methods=['GET', 'POST', 'DELETE'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/departments', methods=['GET', 'POST'])
 def departments():
     if request.method == 'GET':
         departments = get_all_departments()
@@ -57,23 +54,21 @@ def departments():
     elif request.method == 'POST':
         data = request.form
         post_department(data)
-    elif request.method == 'DELETE':
-        dep_id = int(request.data)
-        delete_department(dep_id)
     return redirect(url_for('departments'), 303)
 
 
+@app.route('/delete_department/<int:dep_id>')
+def delete_department(dep_id):
+    requests.delete(f'{BASE}/api/departments/{dep_id}')
+    return redirect(url_for('departments'), 303)
 
-
-
-
-
-@app.route('/departments/<string:dep_name>')
+@app.route('/departments/<string:dep_name>', methods=['GET'])
 def department(dep_name):
-    employees = get_department_employees(dep_name)
-    departments = get_all_departments()
-    return render_template('department.html', title=dep_name.capitalize(),
-                           employees=employees, departments=departments)
+    if request.method == 'GET':
+        employees = get_department_employees(dep_name)
+        departments = get_all_departments()
+        return render_template('department.html', title=dep_name.capitalize(),
+                               employees=employees, departments=departments)
 
 
 @app.route('/employees/<int:empl_id>')
