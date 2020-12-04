@@ -63,6 +63,12 @@ def delete_department(dep_id):
     requests.delete(f'{BASE}/api/departments/{dep_id}')
     return redirect(url_for('departments'), 303)
 
+@app.route('/update_department/<int:dep_id>', methods=['POST'])
+def update_department(dep_id):
+    data = request.form
+    requests.put(f'{BASE}/api/departments/{dep_id}', data)
+    return redirect(url_for('departments'), 303)
+
 @app.route('/departments/<string:dep_name>', methods=['GET'])
 def department(dep_name):
     if request.method == 'GET':
