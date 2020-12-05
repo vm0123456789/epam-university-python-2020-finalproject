@@ -5,10 +5,10 @@
       </button>
       <div class="dropdown_content">
           {% if title != COMPANY_NAME %}
-              <a href="{{ url_for('departments') }}"><i>===Main Page===</i></a>
+              <a href="{{ url_for('site.departments') }}"><i>===Main Page===</i></a>
           {% endif %}
           {% for department in departments if department['name'] != title %}
-          <a href="{{ url_for('department', dep_name=department['name']) }}">
+          <a href="{{ url_for('site.department', dep_name=department['name']) }}">
               {{ department['name'] }}
           </a>
           {% endfor %}

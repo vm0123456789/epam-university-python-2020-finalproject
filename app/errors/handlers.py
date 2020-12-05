@@ -1,10 +1,13 @@
 from flask import render_template
-from app import app, db
 
-@app.errorhandler(404)
+from app.errors import bp
+
+
+@bp.app_errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
 
-@app.errorhandler
+
+@bp.app_errorhandler
 def internal_error(error):
-    return render_template('500html'), 500
+    return render_template('500.html'), 500

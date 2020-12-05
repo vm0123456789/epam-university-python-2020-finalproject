@@ -44,7 +44,7 @@
         </a>
 
         <!-- 'DELETE EMPLOYEE' FLEXBOX -->
-        <a href="{{ url_for('delete_employee', empl_id=empl['id']) }}" class="flexbox_item btn-lg btn-danger"
+        <a href="{{ url_for('site.delete_employee', empl_id=empl['id']) }}" class="flexbox_item btn-lg btn-danger"
            data-toggle="modal" data-target="#modal_add_employee"
            style="justify-content: center; opacity: 0.5;"
            onclick="return confirm('Are you sure? All employee information will be deleted')">

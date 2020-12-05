@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Edit Employee</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ url_for('update_employee', empl_id=empl['id']) }}" method="POST">
+                <form action="{{ url_for('site.update_employee', empl_id=empl['id']) }}" method="POST">
 
                     <div class="form-group">
                         <label for="name">Name:</label>

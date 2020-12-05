@@ -1,5 +1,6 @@
-from app import db
 from datetime import datetime as dt
+from app import db
+
 
 class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,3 +25,4 @@ class Employee(db.Model):
 
 # to create migration 'flask db init' (flask-migrate)
 # to apply migration 'flask db migrate', 'flask db upgrade'
+

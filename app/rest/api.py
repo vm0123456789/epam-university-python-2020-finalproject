@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app import db
 from flask_restful import Resource, fields, marshal, marshal_with, reqparse
-from .models import Department, Employee
+from app.models import Department, Employee
 from datetime import datetime as dt
 
 # request parser for EmployeeApi
@@ -43,6 +43,8 @@ error_fields = {
 message_fields = {
     'message': fields.String
 }
+
+
 # ======= EMPLOYEE API =========
 
 
@@ -124,8 +126,6 @@ class DepartmentApi(Resource):
             return marshal({"message": "The department already exists"}, error_fields), 412
 
 
-
-
 class DepartmentByIdApi(Resource):
 
     def get(self, dep_id):
@@ -162,7 +162,6 @@ class DepartmentByIdApi(Resource):
             db.session.rollback()
             return marshal({"message": "The department with this name already exists"}, error_fields), 412
 
-
     def delete(self, dep_id):
         """
         method deletes department along with all its employees
@@ -194,6 +193,7 @@ class SearchApi(Resource):
         # filter employees by birthday
         employees = [empl for empl in employees if start_date <= empl.birthday <= end_date]
         return employees, 200
+
 
 class SearchByDepartmentApi(Resource):
 
