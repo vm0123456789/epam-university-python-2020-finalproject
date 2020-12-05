@@ -19,5 +19,5 @@ restServ.add_resource(DepartmentByIdApi, '/api/departments/<int:dep_id>')
 restServ.add_resource(SearchApi, '/api/search')
 restServ.add_resource(SearchByDepartmentApi, '/api/search/<int:dep_id>')
 
-from app import views
+from app import views, errors
 
