@@ -7,4 +7,4 @@ migrations/
 .coverage
 app.db
 htmlcov/
-
+logs/
