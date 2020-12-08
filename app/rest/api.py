@@ -82,8 +82,8 @@ class EmployeeByIdApi(Resource):
     def put(self, empl_id):
         # Update employee by id
         args = empl_args.parse_args()
-        args['department_id'] = Department.query.filter_by(name=args['dep_name']).first_or_404().id
-        print(args)
+        if args['dep_name']:
+            args['department_id'] = Department.query.filter_by(name=args['dep_name']).first_or_404().id
         if args['birthday'] is not None:
             args['birthday'] = dt.strptime(args['birthday'], '%Y-%m-%d').date()
         empl = Employee.query.filter_by(id=empl_id).first_or_404()
