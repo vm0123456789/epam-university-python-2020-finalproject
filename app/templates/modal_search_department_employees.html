@@ -3,49 +3,46 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Search Department Employees</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Search Department Employees by Birthday</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
-                        <div class="form-group">
-                            <div class="row form-group">
-                                <div class="col">
-                                    <label for="start_date">From:</label>
-                                    <input type="date" class="form-control" id="start_date" name="start_date"
-                                           required="1">
-                                </div>
-                                <div class="col">
-                                    <label for="end_date">To:</label>
-                                    <input type="date" class="form-control" id="end_date" name="end_date" required="1">
-                                </div>
+                <form id="Dates">
+                    <div class="form-group">
+                        <div class="row form-group">
+                            <div class="col">
+                                <label for="start_date">From:</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date"
+                                       required="1">
                             </div>
-                            <div class="form-group float-right">
-                                <button class="btn btn-success" type="submit">Search</button>
+                            <div class="col">
+                                <label for="end_date">To:</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" required="1">
                             </div>
                         </div>
-
-                    </form>
-
-
-                    <div class="modal-body">
-                        <table class="table table-hover table-dark">
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Birthday</th>
-                                <th>Salary</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Andy Marsh</td>
-                                <td>2019-12-22</td>
-                                <td>700$</td>
-                            </tr>
-                        </table>
+                        <div class="form-group float-right">
+                            <button class="btn btn-success" type="submit" id="SearchButton"
+                                    onclick="searchEmployees(); return false;">Search
+                            </button>
+                        </div>
                     </div>
+
+                </form>
+
+
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Salary</th>
+                    </tr>
+                    <tbody id="EmployeesByDepartmentAndBirthday">
+
+                    </tbody>
+                </table>
 
             </div>
             <div class="modal-footer">
@@ -54,3 +51,49 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    const searchButton = document.querySelector("#SearchButton");
+    const start_date = document.querySelector("#start_date");
+    const end_date = document.querySelector("#end_date");
+
+    searchButton.addEventListener("click", () => {
+        searchEmployees(start_date.value, end_date.value, onDataReceived);
+    });
+
+    let employeesByDepartmentAndBirthday = [];
+
+    function searchEmployees(start_date, end_date, successCallback) {
+        $.ajax({
+            method: 'GET',
+            url: `/api/search/{{ dep_id }}?start_date=${start_date}&end_date=${end_date}`,
+            success: function (data) {
+                successCallback(data);
+            }
+        })
+    }
+
+    function onDataReceived(response) {
+        employeesByDepartmentAndBirthday = response
+        buildTable(employeesByDepartmentAndBirthday)
+        console.log(response)
+    }
+
+    function buildTable(data) {
+        let table = document.getElementById('EmployeesByDepartmentAndBirthday')
+        table.innerHTML = "" //clear table from previous search
+
+        for (let i = 0; i < data.length; i++) {
+            let row = `<tr>
+                <td>${data[i].id}</td>
+                <td>${data[i].name}</td>
+                <td>${data[i].birthday}</td>
+                <td>${data[i].salary}</td>
+            </tr>`
+            table.innerHTML += row
+        }
+    }
+
+
+</script>

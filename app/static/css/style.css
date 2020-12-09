@@ -5,6 +5,10 @@ body {
     color: #000000;
 }
 
+a {
+    color: #666f6f;
+}
+
 a:hover {
     text-decoration: none;
     color: inherit;

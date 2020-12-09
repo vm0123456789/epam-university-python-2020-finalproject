@@ -3,7 +3,6 @@ from flask import render_template, request, redirect, url_for, flash
 from app.models import Department, Employee
 from . import bp
 
-
 # ========= SUPPLEMENTARY =========
 
 BASE = 'http://localhost:5000'
@@ -74,9 +73,10 @@ def update_department(dep_id):
 @bp.route('/departments/<string:dep_name>', methods=['GET', 'POST'])
 def department(dep_name):
     if request.method == 'GET':
+        dep_id = Department.query.filter_by(name=dep_name).first_or_404().id
         employees = get_department_employees(dep_name)
         departments = get_all_departments()
-        return render_template('department.html', dep_name=dep_name, title=dep_name,
+        return render_template('department.html', dep_name=dep_name, dep_id=dep_id, title=dep_name,
                                employees=employees, departments=departments)
     elif request.method == 'POST':
         data = request.form
