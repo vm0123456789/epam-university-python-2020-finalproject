@@ -12,3 +12,4 @@ build/
 dep
 departments_app.egg-info/
 dist/
+*.db
