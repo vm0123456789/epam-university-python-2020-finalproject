@@ -8,3 +8,7 @@ migrations/
 app.db
 htmlcov/
 logs/
+build/
+dep
+departments_app.egg-info/
+dist/
