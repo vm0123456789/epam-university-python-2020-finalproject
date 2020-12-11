@@ -48,7 +48,7 @@ class ApiTest(unittest.TestCase):
 
     # =========== EmployeeApi and EmployeeByIdApi TESTING ==========
 
-    def test_1_EmployeeApi_EmployeeByIdApi(self):
+    def test_api_EmployeeApi_EmployeeByIdApi(self):
         # GET request to /api/employees returns all employees of the company
         r = requests.get(EmployeeApi_URL)
         self.assertEqual(r.status_code, 200)
@@ -83,7 +83,7 @@ class ApiTest(unittest.TestCase):
 
     # ============ SearchApi and SearchbyDepartmentApi TESTING =============
 
-    def test_2_SearchApi_SearchByDepartmentApi(self):
+    def test_api_SearchApi_SearchByDepartmentApi(self):
         # create new employee and store employee's id in global variable
         r = requests.post(EmployeeApi_URL, json=EMPL_JSON)
         global empl_id
@@ -113,7 +113,7 @@ class ApiTest(unittest.TestCase):
 
     # ============ DepartmentApi and DepartmentByIdApi TESTING =============
 
-    def test_3_DepartmentApi_DepartmentByIdApi(self):
+    def test_api_DepartmentApi_DepartmentByIdApi(self):
         # GET request to /api/departments returns all departments of the company
         r = requests.get(DepartmentApiURL)
         self.assertEqual(r.status_code, 200)
