@@ -1,6 +1,6 @@
 from app import create_app, db
 
-app = create_app(testing=False)
+app = create_app(testing=True)
 
 @app.shell_context_processor
 def make_shell_context():
