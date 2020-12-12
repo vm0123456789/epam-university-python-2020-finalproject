@@ -2,85 +2,41 @@
 {% include 'navbar.html' %}
 
 {% block content %}
-    <!--========FLEXBOX CONTAINER==========-->
-    <div class="flexbox_container">
-        {% for department in departments %}
-            <div class="flexbox_item">
-                <a href="{{ url_for('site.department', dep_name=department['name']) }}"
-                   class="flexbox_inscription btn btn-lnk btn-sm">{{ department['name'] }}</a>
-                <div class="flexbox_subscription">average salary: {{ department['average_salary'] }} $</div>
+<!--========FLEXBOX CONTAINER==========-->
+<div class="flexbox_container">
+    {% for department in departments %}
+    <div class="flexbox_item">
+        <a href="{{ url_for('site.department', dep_name=department['name']) }}"
+           class="flexbox_inscription btn btn-lnk btn-sm">{{ department['name'] }}</a>
+        <div class="flexbox_subscription">average salary: {{ department['average_salary'] }} $</div>
 
-                <div class="flexbox_button">
-                    <a class="btn btn-outline-success btn-sm"
-                       data-toggle="modal" data-target="#modal_edit_department{{ department['id'] }}">Edit
-                    </a>
-                    <a href="{{ url_for('site.delete_department', dep_id=department['id']) }}"
-                       class="btn btn-outline-danger btn-sm"
-                       onclick="return confirm('Are you sure? The department will be deleted with all employees. ' +
+        <div class="flexbox_button">
+            <a class="btn btn-outline-success btn-sm"
+               data-toggle="modal" data-target="#modal_edit_department{{ department['id'] }}">Edit
+            </a>
+            <a href="{{ url_for('site.delete_department', dep_id=department['id']) }}"
+               class="btn btn-outline-danger btn-sm"
+               onclick="return confirm('Are you sure? The department will be deleted with all employees. ' +
                         'It is recommended to transfer all employees somewhere else first')">Delete</a>
-                </div>
-            </div>
-
-            <!-- ====== MODAL EDIT DEPARTMENT ======= -->
-            <div id="modal_edit_department{{ department['id'] }}" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Department</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ url_for('site.update_department', dep_id=department['id']) }}" method="POST">
-                                <div class="form-group">
-                                    <label>Department Name:</label>
-                                    <input type="text" class="form-control" name="name" required="1"
-                                           value="{{ department['name'] }}">
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary" id="btnEditDepartment" type="submit">Edit Department
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-
-
-        <!-- 'ADD DEPARTMENT' FLEXBOX -->
-        <a href='#' class="flexbox_item btn-lg btn-success" data-toggle="modal" data-target="#modal_add_department"
-           style="justify-content: center; opacity: 0.5;">
-            <div class="flexbox_inscription">
-                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                          d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                    <path fill-rule="evenodd"
-                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-            </div>
-        </a>
+        </div>
     </div>
 
-    <!-- ====== MODAL ADD DEPARTMENT ======= -->
-    <div id="modal_add_department" class="modal fade" role="dialog">
+    <!-- ====== MODAL EDIT DEPARTMENT ======= -->
+    <div id="modal_edit_department{{ department['id'] }}" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Department</h4>
+                    <h4 class="modal-title">Edit Department</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST" id="AddDepartmentForm">
+                    <form action="{{ url_for('site.update_department', dep_id=department['id']) }}" method="POST">
                         <div class="form-group">
                             <label>Department Name:</label>
-                            <input type="text" class="form-control" name="name" required="1">
+                            <input type="text" class="form-control" name="name" required="1"
+                                   value="{{ department['name'] }}">
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary" id="btnAddDepartment" type="submit">
-                                Add Department
+                            <button class="btn btn-primary" id="btnEditDepartment" type="submit">Edit Department
                             </button>
                         </div>
                     </form>
@@ -91,8 +47,51 @@
             </div>
         </div>
     </div>
+    {% endfor %}
 
 
+    <!-- 'ADD DEPARTMENT' FLEXBOX -->
+    <a href='#' id="add_department_form_button" class="flexbox_item btn-lg btn-success" data-toggle="modal"
+       data-target="#modal_add_department"
+       style="justify-content: center; opacity: 0.5;">
+        <div class="flexbox_inscription">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd"
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+        </div>
+    </a>
+</div>
+
+<!-- ====== MODAL ADD DEPARTMENT ======= -->
+<div id="modal_add_department" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Department</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" id="AddDepartmentForm">
+                    <div class="form-group">
+                        <label>Department Name:</label>
+                        <input type="text" class="form-control" name="name" required="1">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="btnAddDepartment" type="submit">
+                            Add Department
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}

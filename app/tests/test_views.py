@@ -1,38 +1,40 @@
-import pytest
 import unittest
+import pytest
 from app.site.views import *
 
 BASE = "http://localhost:5000"
 
+# =========== Departments Views functions TESTING ============
 
-@pytest.mark.usefixtures("app_context")
-class ViewsTest(unittest.TestCase):
+DEP_JSON = {
+    "name": "Human Resources"
+}
 
-    # =========== Api Requests functions TESTING ============
-
-    def test_views_get_all_departments(self):
-        """The function `get_all_departments` makes GET request to '/api/departments' endpoint"""
-        departments_json = get_all_departments()
-        self.assertEqual(len(departments_json), 3)
-
-    def test_views_get_department_employees(self):
-        """The function `get_department_employees` makes GET request to '/api/departments/<department_id>' endpoint"""
-        department_employees_json = get_department_employees('Sales')
-        self.assertEqual(len(department_employees_json), 5)
-
-    def test_views_get_employee(self):
-        """The function `get_employee` makes GET request to '/api/employees/<employee_id>' endpoint"""
-        empl_id = get_department_employees('Sales')[0]['id']  # The first employee should be 'Jim Halpert'
-        employee = get_employee(empl_id)
-        self.assertEqual(employee['name'], 'Jim Halpert')
-
-    def test_views_dep_name_by_empl_id(self):
-        """The function `views_dep_name_by_empl_id` makes 2 db requests through sqlalchemy"""
-        empl_id = get_department_employees('Sales')[0]['id']
-        dep_name = dep_name_by_empl_id(empl_id)
-        self.assertEqual(dep_name, 'Sales')
+"""Testing `departments()`, `update_department(dep_id)` and `delete_department(dep_id)` view functions"""
 
 
-
+# def test_views_departments_get():
+#     """GET request to '/departments' route"""
+#     r = requests.get(f'{BASE}/departments')
+#     assert r.status_code == 200
+#     assert r.headers['Content-Type'] == 'text/html; charset=utf-8'
+#     assert '<div id="modal_add_department" class="modal fade" role="dialog">' in r.text
+#
+# def test_views_departments_post_put_delete(app_context):
+#     """Adding, updating and deleting Department on the '/departments' route"""
+#
+#     payload = [('Name', 'Human Resources')]
+#
+# def test_views_departments_get(app_context):
+#     r = app_context.get('/')
+#     assert r.status_code == 200
+#
+# @pytest.mark.usefixtures("client")
+# class ViewFunctionsTest:
+#
+#     def test_views_departments_get(self, client):
+#         r = self.client.get('/')
+#         self.assertEqual(r.status_code, 200)
+#         self.assertEqual(r.headers['Content-Type'], 'text/html; charset=utf-8')
 
 

@@ -10,6 +10,7 @@ class Config(object):
 
 
 class TestingConfig(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or '-very-very-SECRET-KEY-'
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app/tests/test.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

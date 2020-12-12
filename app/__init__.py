@@ -20,12 +20,12 @@ def create_app(testing=False):
     # testing mode (by default False)
     if testing:
         app.config.from_object(TestingConfig)
+
     else:
         app.config.from_object(Config)
-
-    from app.models import Employee, Department
-    db.init_app(app)
-    migrate.init_app(app, db)
+        from app.models import Employee, Department
+        db.init_app(app)
+        migrate.init_app(app, db)
 
     from app.site import bp as site_bp
     app.register_blueprint(site_bp)
