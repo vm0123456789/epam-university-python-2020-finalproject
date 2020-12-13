@@ -1,5 +1,0 @@
-recursive-include app/
-include requirements.txt
-include .gitignore
-include .flaskenv
-recursive-include documentation/
