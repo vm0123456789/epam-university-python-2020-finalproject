@@ -1,0 +1,37 @@
+COVERAGE:
+
+    pytest --cov=app app/tests  # simple report
+    pytest --cov-report term-missing --cov=app app/tests  # missing lines
+
+----------------------------------------------------------------------------------------------------------
+
+MYSQL:
+
+    sudo apt install mysql-server
+    sudo myslq_secure_installation
+
+    sudo systemctl enable --now mysql.service
+    # systemctl manages backgroud services; enable - start after system starts up; --now - also start now, immediately
+    systemctl status mysql.service
+
+    sudo ufw status  # status of ubuntu firewall
+    sudo ufl allow mysql
+
+    sudo netstat -tap | grep mysql  # mysql address and port
+
+    sudo service mysql restart
+    sudo mysql -u root -p
+
+    SHOW DATABASES;
+    CREATE DATABASE <db_name>;
+    USE <db_name>;
+    SHOW TABLES;
+
+    SHOW VARIABLES LIKE 'validate_password%';
+    SET GLOBAL validate_password_policy=LOW;
+
+    CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+    # if problems: ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+    GRANT ALL PRIVILEGES ON DATABASE <db_name>.* TO 'user'@'localhost';
+    SHOW GRANTS FOR 'user'@'localhost';
