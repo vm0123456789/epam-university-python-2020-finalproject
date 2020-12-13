@@ -35,3 +35,11 @@ MYSQL:
 
     GRANT ALL PRIVILEGES ON DATABASE <db_name>.* TO 'user'@'localhost';
     SHOW GRANTS FOR 'user'@'localhost';
+
+-------------------------------------------------------------------------------
+
+BASH
+
+    find process' PID by name: pgrep <process_name>
+
+
