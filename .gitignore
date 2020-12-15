@@ -13,3 +13,4 @@ dep
 departments_app.egg-info/
 dist/
 *.db
+departments_app.log

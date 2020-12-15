@@ -1,6 +1,6 @@
 <!--========DROPDOWN NAVBAR==========-->
   <div class="dropdown_navbar">
-      <button class="dropdown_button">
+      <button class="dropdown_button" onclick="showContent()">
           {{ title }}
       </button>
       <div class="dropdown_content">
@@ -14,6 +14,17 @@
           {% endfor %}
       </div>
   </div>
+<script>
+    function showContent() {
+      let x = document.querySelector(".dropdown_content");
+
+      if (!x.style.display || x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+}
+</script>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -26,3 +37,4 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+

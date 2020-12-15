@@ -40,6 +40,7 @@ a:active {
     position: absolute;
     background-color: #e9ecef;
     min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -49,6 +50,12 @@ a:active {
     padding: 2%;
     text-decoration: none;
     display: block;
+      box-shadow:
+    2px 0 0 0 #888,
+    0 2px 0 0 #888,
+    2px 2px 0 0 #888,   /* Just to fix the corner */
+    2px 0 0 0 #888 inset,
+    0 2px 0 0 #888 inset;
 }
 
 /* Change color of dropdown links on hover */
@@ -57,9 +64,9 @@ a:active {
 }
 
 /* Show the dropdown menu on hover */
-.dropdown_navbar:hover .dropdown_content, .dropdown_navbar:active .dropdown_content {
+/*.dropdown_navbar:hover .dropdown_content, .dropdown_navbar:active .dropdown_content {
     display: block;
-}
+} */
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown_navbar:hover .dropdown_button, .dropdown_navbar:active .dropdown_button {
